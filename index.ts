@@ -4,6 +4,7 @@ import { Dirs } from "./models/dirs.model";
 import { createDir } from "./create";
 import { deleteDir } from "./delete";
 import { listDirs } from "./list";
+import { moveDir } from "./move";
 
 let dirs: Dirs = {};
 // Function to handle user input
@@ -28,7 +29,7 @@ const handleInput = (input: Buffer) => {
         listDirs(dirs);
         break;
       case "MOVE":
-        console.log("MOVE");
+        dirs = moveDir(userInput[1], userInput[2], dirs);
         break;
     }
     console.log(dirs);
