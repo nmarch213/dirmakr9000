@@ -1,4 +1,5 @@
 import { Dirs } from "./models/dirs.model";
+import { findDir } from "./utils";
 
 export const deleteDir = (dir: string, state: Dirs): Dirs => {
   if (state[dir]) {
@@ -10,20 +11,18 @@ export const deleteDir = (dir: string, state: Dirs): Dirs => {
 
 const deleteNestedDirsFromState = (dir: string, state: Dirs): Dirs => {
   const dirs = dir.split("/");
-  const [currentDir, ...rest] = dirs;
-  if (rest.length === 1) {
-    console.log("currentDir", currentDir);
-    const deletedState = { ...state[currentDir] };
-    delete deletedState[rest[0]];
-    return {
-      ...state,
-      [currentDir]: {
-        ...deletedState,
-      },
-    };
-  }
+  const lastDir = dirs[dirs.length - 1];
+  dirs.pop();
+  const parentDirState = findDir(dirs, state);
+  const parentDir = dirs[dirs.length - 1];
+
+  const deletedDirState = {
+    ...parentDirState,
+  };
+  delete deletedDirState[lastDir];
+
   return {
     ...state,
-    [currentDir]: deleteNestedDirsFromState(rest.join("/"), state[currentDir]),
+    [parentDir]: deletedDirState,
   };
 };

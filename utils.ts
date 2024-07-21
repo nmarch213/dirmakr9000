@@ -1,10 +1,8 @@
 import { Dirs } from "./models/dirs.model";
 
-export const findDir = (dir: string, state: Dirs): Dirs => {
-  const dirs = dir.split("/");
-  const [currentDir, ...rest] = dirs;
-  if (rest.length === 0) {
-    return state[currentDir];
+export const findDir = (dir: string[], state: Dirs): Dirs => {
+  if (dir.length === 1) {
+    return state[dir[0]];
   }
-  return findDir(rest.join("/"), state[currentDir]);
+  return findDir(dir.slice(1), state[dir[0]]);
 };
