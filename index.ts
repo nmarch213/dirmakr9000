@@ -2,6 +2,7 @@ import { stdin, stdout } from "process";
 import { decipherCommand } from "./decipher-command";
 import { Dirs } from "./models/dirs.model";
 import { createDir } from "./create";
+import { deleteDir } from "./delete";
 
 let dirs: Dirs = {};
 // Function to handle user input
@@ -20,7 +21,7 @@ const handleInput = (input: Buffer) => {
         dirs = createDir(userInput[1], dirs);
         break;
       case "DELETE":
-        console.log("DELETE");
+        dirs = deleteDir(userInput[1], dirs);
         break;
       case "LIST":
         console.log("LIST");
