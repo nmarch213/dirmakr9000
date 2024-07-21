@@ -1,5 +1,6 @@
 {
-  "name": "dir-explorer",
+  "name": "dirmakr900",
+  "description": "The last CLI tool for directory creation",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,7 +9,6 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@types/node": "^20.14.11",
     "typescript": "^5.5.3"
