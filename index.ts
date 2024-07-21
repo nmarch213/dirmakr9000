@@ -7,12 +7,8 @@ import { listDirs } from "./commands/list";
 import { moveDir } from "./commands/move";
 
 let dirs: Dirs = {};
-// Function to handle user input
-const handleInput = (input: Buffer) => {
-  if (!input) {
-    console.log("Try Again");
-  }
 
+const handleInput = (input: Buffer) => {
   const userInput: string[] = input.toString().trim().split(" ");
   const command = userInput[0];
   const dirCommand = decipherCommand(command);
@@ -41,16 +37,12 @@ const handleInput = (input: Buffer) => {
   }
 };
 
-// Function to display prompt
 const prompt = () => {
   stdout.write("Enter command: ");
 };
 
-// Set the encoding for stdin
 stdin.setEncoding("utf-8");
 
-// Listen for user input
 stdin.on("data", handleInput);
 
-// Initial prompt to the user
 prompt();
