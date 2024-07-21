@@ -1,5 +1,5 @@
 import { Dirs } from "../models/dirs.model";
-import { findDir } from "../utils/utils";
+import { checkIfAllParentDirsExist, findDir } from "../utils/utils";
 
 export const deleteDir = (dir: string, state: Dirs): Dirs => {
   const missingValue = checkIfAllParentDirsExist(dir, state);
@@ -32,19 +32,4 @@ const deleteNestedDirsFromState = (dir: string, state: Dirs): Dirs => {
     ...state,
     [parentDir]: deletedDirState,
   };
-};
-
-const checkIfAllParentDirsExist = (dir: string, state: Dirs): string | null => {
-  if (!dir.includes("/")) {
-    dir = dir + "/";
-  }
-  const dirs = dir.split("/");
-  let currentDir = state;
-  for (let i = 0; i < dirs.length - 1; i++) {
-    if (!currentDir[dirs[i]]) {
-      return dirs[i];
-    }
-    currentDir = currentDir[dirs[i]];
-  }
-  return null;
 };

@@ -1,17 +1,17 @@
 import { createDir } from "./create";
 import { deleteDir } from "./delete";
 import { Dirs } from "../models/dirs.model";
-import { findDir } from "../utils/utils";
+import { checkIfAllParentDirsExist, findDir } from "../utils/utils";
 
 export const moveDir = (fromDir: string, toDir: string, state: Dirs): Dirs => {
-  const fromDirState = findDir(fromDir.split("/"), state);
-  const toDirState = findDir(toDir.split("/"), state);
-  if (fromDirState && !toDirState) {
-    const stateAfterDeletingFromDir = deleteDir(fromDir, state);
-    return {
-      ...stateAfterDeletingFromDir,
-      ...createDir(toDir, stateAfterDeletingFromDir),
-    };
+  const missingValue = checkIfAllParentDirsExist(fromDir, state);
+  if (missingValue) {
+    console.error(
+      `Cannot move ${fromDir} because ${missingValue} does not exist`,
+    );
+    return state;
   }
-  return state;
+  const fromDirState = findDir(fromDir.split("/"), state);
+  const newState = deleteDir(fromDir, state);
+  return createDir(toDir, newState);
 };
