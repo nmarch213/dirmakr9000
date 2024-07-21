@@ -5,6 +5,7 @@ import { createDir } from "./commands/create";
 import { deleteDir } from "./commands/delete";
 import { listDirs } from "./commands/list";
 import { moveDir } from "./commands/move";
+import { printBrand, printMenu } from "./ascii/brand";
 
 let dirs: Dirs = {};
 
@@ -42,7 +43,9 @@ const prompt = () => {
 };
 
 stdin.setEncoding("utf-8");
-
 stdin.on("data", handleInput);
+
+printBrand();
+printMenu();
 
 prompt();
