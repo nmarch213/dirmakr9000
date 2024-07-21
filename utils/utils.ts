@@ -12,7 +12,3 @@ export const findDir = (dir: string[], state: Dirs): Dirs => {
   }
   return findDir(dir.slice(1), state[dir[0]]);
 };
-
-export const deepCopy = (value: any): any => {
-  return JSON.parse(JSON.stringify(value));
-};
