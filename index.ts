@@ -1,9 +1,9 @@
 import { stdin, stdout } from "process";
 import { decipherCommand } from "./decipher-command";
-import { DirState } from "./models/dirs.model";
+import { Dirs } from "./models/dirs.model";
 import { createDir } from "./create";
 
-let dirs = {};
+let dirs: Dirs = {};
 // Function to handle user input
 const handleInput = (input: Buffer) => {
   if (!input) {

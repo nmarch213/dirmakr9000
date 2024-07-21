@@ -1,3 +1,1 @@
-export type DirState = {
-  dirname?: Record<string, Record<string, string>>;
-};
+export type Dirs = { [k: string]: number | Dirs };

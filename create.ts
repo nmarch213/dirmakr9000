@@ -1,15 +1,13 @@
-export const createDir = (dir: string, state: any): any => {
-  let newState = { ...state };
+import { Dirs } from "./models/dirs.model";
 
+export const createDir = (dir: string, state: Dirs): any => {
   if (state[dir]) {
     console.log(`Directory ${dir} already exists`);
     return state;
-  }
-  if (state[`${dir}`] !== Object) {
-    newState = {
+  } else {
+    return {
       ...state,
       [`${dir}`]: {},
     };
   }
-  return newState;
 };
