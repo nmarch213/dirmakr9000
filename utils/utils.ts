@@ -29,3 +29,7 @@ export const checkIfAllParentDirsExist = (
 
   return null;
 };
+
+export const deepCopy = (obj: any) => {
+  return JSON.parse(JSON.stringify(obj));
+};

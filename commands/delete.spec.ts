@@ -2,38 +2,57 @@ import { Dirs } from "../models/dirs.model";
 import { deleteDir } from "./delete";
 
 describe("deleteDir", () => {
-  let consoleSpy: jest.SpyInstance;
+  it("correctly deletes a directory with nested directories", () => {
+    const initialState: Dirs = {
+      food: {
+        pie: {
+          apple: {},
+          banana: {},
+        },
+        cake: {},
+      },
+      snacks: {},
+    };
+    const expectedState: Dirs = {
+      food: {
+        pie: {
+          banana: {},
+        },
+        cake: {},
+      },
+      snacks: {},
+    };
 
-  beforeEach(() => {
-    consoleSpy = jest.spyOn(console, "error").mockImplementation();
-  });
-
-  afterEach(() => {
-    consoleSpy.mockRestore();
-  });
-  it("does not change the state if the directory does not exist", () => {
-    const initialState: Dirs = { topDir: { nestedDir: {} } };
-    const resultState = deleteDir("nonexistentDir", initialState);
-    expect(resultState).toEqual(initialState);
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "Cannot delete nonexistentDir because nonexistentDir does not exist",
-    );
+    const resultState = deleteDir("food/pie/apple", initialState);
+    expect(resultState).toEqual(expectedState);
   });
 
   it("deletes a top-level directory", () => {
-    const initialState: Dirs = { topDir: {}, otherDir: {} };
-    const resultState = deleteDir("topDir", initialState);
-    expect(resultState).not.toHaveProperty("topDir");
-    expect(resultState).toHaveProperty("otherDir");
+    const initialState: Dirs = {
+      food: {
+        pie: {},
+      },
+      snacks: {},
+    };
+    const expectedState: Dirs = {
+      snacks: {},
+    };
+
+    const resultState = deleteDir("food", initialState);
+    expect(resultState).toEqual(expectedState);
   });
 
-  it("correctly deletes a nested directory", () => {
+  it("does nothing if the directory does not exist", () => {
     const initialState: Dirs = {
-      topDir: { nestedDir: {}, anotherDir: {} },
-      otherDir: {},
+      food: {
+        pie: {
+          apple: {},
+        },
+      },
+      snacks: {},
     };
-    const resultState = deleteDir("topDir/nestedDir", initialState);
-    expect(resultState.topDir).not.toHaveProperty("nestedDir");
-    expect(resultState.topDir).toHaveProperty("anotherDir");
+
+    const resultState = deleteDir("food/pie/orange", initialState);
+    expect(resultState).toEqual(initialState);
   });
 });

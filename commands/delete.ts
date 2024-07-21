@@ -1,5 +1,5 @@
 import { Dirs } from "../models/dirs.model";
-import { checkIfAllParentDirsExist, findDir } from "../utils/utils";
+import { checkIfAllParentDirsExist, deepCopy, findDir } from "../utils/utils";
 
 export const deleteDir = (dir: string, state: Dirs): Dirs => {
   const missingValue = checkIfAllParentDirsExist(dir, state);
@@ -9,27 +9,25 @@ export const deleteDir = (dir: string, state: Dirs): Dirs => {
     );
     return state;
   }
-  if (state[dir]) {
-    delete state[dir];
-    return state;
-  }
-  return deleteNestedDirsFromState(dir, state);
+  return deleteNestedDirsFromState(dir, deepCopy(state));
 };
 
 const deleteNestedDirsFromState = (dir: string, state: Dirs): Dirs => {
   const dirs = dir.split("/");
-  const lastDir = dirs[dirs.length - 1];
-  dirs.pop();
-  const parentDir = dirs[dirs.length - 1];
+  const lastDir = dirs.pop();
 
-  const parentDirState = findDir(dirs, state);
-  const deletedDirState = {
-    ...parentDirState,
-  };
-  delete deletedDirState[lastDir];
+  let current = state;
+  for (const dir of dirs) {
+    if (current[dir]) {
+      current = current[dir];
+    } else {
+      return state;
+    }
+  }
 
-  return {
-    ...state,
-    [parentDir]: deletedDirState,
-  };
+  if (lastDir && current && current[lastDir]) {
+    delete current[lastDir];
+  }
+
+  return state;
 };

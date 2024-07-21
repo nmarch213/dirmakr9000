@@ -11,7 +11,6 @@ export const moveDir = (fromDir: string, toDir: string, state: Dirs): Dirs => {
     );
     return state;
   }
-  const fromDirState = findDir(fromDir.split("/"), state);
   const newState = deleteDir(fromDir, state);
   return createDir(toDir, newState);
 };
