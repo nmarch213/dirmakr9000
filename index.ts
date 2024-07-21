@@ -29,13 +29,8 @@ const handleInput = (input: Buffer) => {
         dirs = moveDir(userInput[1], userInput[2], dirs);
         break;
     }
-    console.log(dirs);
-    prompt();
   }
-
-  if (!dirCommand) {
-    prompt();
-  }
+  prompt();
 };
 
 const prompt = () => {
