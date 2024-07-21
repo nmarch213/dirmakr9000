@@ -1,4 +1,4 @@
-import { Dirs } from "./models/dirs.model";
+import { Dirs } from "../models/dirs.model";
 
 export const listDirs = (state: Dirs): void => {
   return listNestedDirs(state);

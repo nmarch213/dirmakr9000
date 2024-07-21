@@ -1,5 +1,5 @@
-import { Dirs } from "./models/dirs.model";
-import { findDir } from "./utils";
+import { Dirs } from "../models/dirs.model";
+import { findDir } from "../utils";
 
 export const deleteDir = (dir: string, state: Dirs): Dirs => {
   if (state[dir]) {

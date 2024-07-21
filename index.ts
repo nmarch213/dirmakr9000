@@ -1,10 +1,10 @@
 import { stdin, stdout } from "process";
 import { decipherCommand } from "./decipher-command";
 import { Dirs } from "./models/dirs.model";
-import { createDir } from "./create";
-import { deleteDir } from "./delete";
-import { listDirs } from "./list";
-import { moveDir } from "./move";
+import { createDir } from "./commands/create";
+import { deleteDir } from "./commands/delete";
+import { listDirs } from "./commands/list";
+import { moveDir } from "./commands/move";
 
 let dirs: Dirs = {};
 // Function to handle user input
