@@ -1,1 +1,1 @@
-export type Dirs = { [k: string]: number | Dirs };
+export type Dirs = { [k: string]: {} | Dirs };

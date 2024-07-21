@@ -7,7 +7,25 @@ export const createDir = (dir: string, state: Dirs): any => {
   } else {
     return {
       ...state,
-      [`${dir}`]: {},
+      ...addNestedDirsToState(dir, dir, state),
     };
   }
+};
+
+const addNestedDirsToState = (
+  initialCommand: string,
+  dir: string,
+  state: Dirs,
+): Dirs => {
+  const dirs = dir.split("/");
+  const [currentDir, ...rest] = dirs;
+  if (rest.length === 0) {
+    return {
+      ...state[initialCommand.split("/")[0]],
+      [currentDir]: {},
+    };
+  }
+  return {
+    [currentDir]: addNestedDirsToState(initialCommand, rest.join("/"), state),
+  };
 };
