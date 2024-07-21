@@ -1,5 +1,5 @@
 import { stdin, stdout } from "process";
-import { decipherCommand } from "./decipher-command";
+import { decipherCommand } from "./utils/decipher-command";
 import { Dirs } from "./models/dirs.model";
 import { createDir } from "./commands/create";
 import { deleteDir } from "./commands/delete";

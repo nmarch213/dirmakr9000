@@ -1,7 +1,7 @@
 import { createDir } from "./create";
 import { deleteDir } from "./delete";
 import { Dirs } from "../models/dirs.model";
-import { findDir } from "../utils";
+import { findDir } from "../utils/utils";
 
 export const moveDir = (fromDir: string, toDir: string, state: Dirs): Dirs => {
   const fromDirState = findDir(fromDir.split("/"), state);

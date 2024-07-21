@@ -1,4 +1,4 @@
-import { Dirs } from "./models/dirs.model";
+import { Dirs } from "../models/dirs.model";
 
 export const findDir = (dir: string[], state: Dirs): Dirs => {
   if (dir.length === 1) {
